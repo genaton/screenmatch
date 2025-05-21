@@ -70,7 +70,7 @@ public class Principal {
 
         List<Episodio> episodios = temporadas.stream()
                 .flatMap(t -> t.episodios().stream()
-                        .map(d -> new Episodio(t.numero(), d)))
+                        .map(d -> new Episodio(t.numero(), d)).filter(e -> e.getAvaliacao()!= 0.0))
                 .collect(Collectors.toList());
 
         System.out.println("lista de episódios: ");
