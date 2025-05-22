@@ -18,7 +18,7 @@ public class FiltraOsTresProdutosMaisBaratos {
         List<String> produtosMaisBaratos = produtos.stream()
             .filter(p -> p.getPreco() < 1000 && p.getCategoria() == "Eletrônicos" )
             .sorted((p1, p2) -> Double.compare(p1.getPreco(), p2.getPreco()))
-            .limit(3)
+            // .limit(3)
             .map(Produto::toString)
             .collect(Collectors.toList());
 
