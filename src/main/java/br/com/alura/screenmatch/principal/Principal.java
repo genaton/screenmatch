@@ -10,36 +10,47 @@ import java.util.Scanner;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import br.com.alura.screenmatch.model.DadosEpisodio;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
 import br.com.alura.screenmatch.model.Episodio;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
+import br.com.alura.screenmatch.service.Config;
 
+@Component
 public class Principal {
 
     private Scanner leitura = new Scanner(System.in);
+    
+    @Autowired
     private ConsumoApi consumo = new ConsumoApi();
+    
+    @Autowired
     private ConverteDados conversor = new ConverteDados();
+    
+    @Autowired
+    private Config config;
 
     private final String ENDERECO = "http://www.omdbapi.com/?t=";
-    private final String API_KEY = "&apikey=9785c32c";
-    // http://www.omdbapi.com/?t=gilmore+girls&apikey=9785c32c
+    
 
     public void exibeMenu() {
         System.out.println("Digite o nome da série ");
         var nomeSerie = leitura.nextLine();
 
         var json = consumo.obterDados(
-                ENDERECO + nomeSerie.replace(" ", "+") + API_KEY);
+                ENDERECO + nomeSerie.replace(" ", "+") +  config.getApiKey());
 
         DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
         System.out.println(dados);
         List<DadosTemporada> temporadas = new ArrayList<>();
 
         for (int i = 1; i <= dados.totalTemporadas(); i++) {
-            json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") + "&season=" + i + API_KEY);
+            json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") + "&season=" + i + config.getApiKey());
             DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
 
             temporadas.add(dadosTemporada);
