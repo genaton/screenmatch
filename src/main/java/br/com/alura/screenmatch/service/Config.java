@@ -10,8 +10,16 @@ import org.springframework.stereotype.Component;
 public class Config {
     @Value("${api.key}")
     private String apiKey;
+    
+    @Value("${openai.api.key}")
+    private String openAiApiKey;
+    
 
     public String getApiKey() {
         return apiKey;
+    }
+
+    public String getOpenAiApiKey(){
+        return openAiApiKey;
     }
 }
