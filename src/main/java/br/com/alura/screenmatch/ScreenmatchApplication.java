@@ -12,7 +12,7 @@ import br.com.alura.screenmatch.repository.SerieRepository;
 
 public class ScreenmatchApplication implements CommandLineRunner {
 	// @Autowired
-	// private Principal principal;
+	
 	@Autowired
 	private SerieRepository repositorio;
 
