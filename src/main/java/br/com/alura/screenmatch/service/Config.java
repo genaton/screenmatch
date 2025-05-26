@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 // @PropertySource("classpath:application.properties")
 public class Config {
-    @Value("${api.key}")
+    // @Value("${api.key}")
     private String apiKey;
     
-    @Value("${openai.api.key}")
+    // @Value("${openai.api.key}")
     private String openAiApiKey;
     
 
